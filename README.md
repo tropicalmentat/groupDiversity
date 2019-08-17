@@ -1,2 +1,2 @@
 # Maximal group diversity
-OBJECTIVE: Use OptaPlanner to maximize the diversity of group assignments in terms of interests, age, job tenure, passions and previous quarter's group assignment.
+OBJECTIVE: Assignment members of our analytics team of Accenture Operations to groups. The objective is for members to get know other members beyond their immediate professional circles and interests. This will facilitated by using OptaPlanner, an AI constraint solver written in Java.
