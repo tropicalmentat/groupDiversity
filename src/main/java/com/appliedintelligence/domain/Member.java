@@ -1,11 +1,12 @@
-package com.appliedintelligence;
+package com.appliedintelligence.domain;
 
-public class Passion {
+public class Member {
 
-    private String Passion;
     private String name;
 
-    public String getName() {
+//    private Member(){}
+
+    public String getName(){
         return name;
     }
 

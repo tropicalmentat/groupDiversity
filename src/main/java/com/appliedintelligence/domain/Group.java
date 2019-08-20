@@ -1,12 +1,11 @@
-package com.appliedintelligence;
+package com.appliedintelligence.domain;
+
+import org.optaplanner.core.api.domain.entity.PlanningEntity;
 
 import java.util.List;
 
+@PlanningEntity
 public class Group {
-    /*
-    Each business quarter (Accenture calendar) will have a new
-    set of groups
-     */
 
     private String groupName;
     private int groupIndex;
