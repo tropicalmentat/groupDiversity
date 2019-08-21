@@ -12,12 +12,16 @@ public class Group {
     private int memberIndex;
     private List<Member> memberList;
 
+    public List<Member> getMemberList() {
+        return memberList;
+    }
+
     public int getGroupIndex() {
         return groupIndex;
     }
 
-    public List<Member> getMemberList() {
-        return memberList;
+    public void setGroupIndex(int i){
+        this.groupIndex = i;
     }
 
     public void setMemberList(List<Member> memberList) {

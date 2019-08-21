@@ -8,6 +8,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.appliedintelligence.domain.MemberAssignment;
 import com.appliedintelligence.domain.Group;
 import com.appliedintelligence.domain.Member;
 import com.opencsv.CSVReader;
@@ -16,25 +17,26 @@ public class App {
 
     private static final String dataPath  = "C:\\Users\\jose.luigi.s.torres\\Desktop\\trulyhuman_grouper\\data\\data_th_heart_melted.csv";
 
-//    static GroupAssignmentSolution groupAssignment = new GroupAssignmentSolution();
-
     public static void setUp(List<String> members){
         ArrayList<Member> memberList = new ArrayList<>();
-        Group group = new Group();
-        group.setMemberList(memberList);
-        int memberCount = 0;
+        ArrayList<Group> groupList = new ArrayList<>();
 
+        // create groups
+        for (int i=0;i<=7;i++){
+            Group group = new Group();
+            group.setGroupIndex(i);
+            groupList.add(group);
+        }
+        System.out.println(groupList);
+
+        // create list of members
         for (String memberName:members){
             Member member = new Member();
             System.out.println(memberName);
             member.setName(memberName);
             memberList.add(member);
-            memberCount++;
         }
-
         System.out.println(memberList);
-        System.out.println(memberCount);
-        System.out.println(group.getMemberList());
 
     }
 

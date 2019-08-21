@@ -4,8 +4,6 @@ public class Member {
 
     private String name;
 
-//    private Member(){}
-
     public String getName(){
         return name;
     }
