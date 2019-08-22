@@ -8,7 +8,6 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.appliedintelligence.domain.MemberAssignment;
 import com.appliedintelligence.domain.Group;
 import com.appliedintelligence.domain.Member;
 import com.opencsv.CSVReader;
@@ -37,6 +36,9 @@ public class App {
             memberList.add(member);
         }
         System.out.println(memberList);
+
+    }
+    public void assignMember(){
 
     }
 

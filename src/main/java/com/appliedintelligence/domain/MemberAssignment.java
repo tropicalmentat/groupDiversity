@@ -1,37 +1,30 @@
 package com.appliedintelligence.domain;
 
-import org.optaplanner.core.api.domain.solution.PlanningScore;
-import org.optaplanner.core.api.domain.solution.PlanningSolution;
-import org.optaplanner.core.api.domain.solution.drools.ProblemFactCollectionProperty;
-import org.optaplanner.core.api.domain.valuerange.ValueRangeProvider;
-import org.optaplanner.core.api.score.buildin.hardsoft.HardSoftScore;
+import org.optaplanner.core.api.domain.entity.PlanningEntity;
+import org.optaplanner.core.api.domain.variable.PlanningVariable;
 
-import java.util.ArrayList;
-import java.util.List;
-
-@PlanningSolution
+@PlanningEntity
 public class MemberAssignment {
 
-    private ArrayList<Group> groupList;
-    private ArrayList<Member> memberList;
-    private HardSoftScore score;
+    private Group group;
+    private Member member;
 
-    public List<Group> getGroupList(){
-        return groupList;
+    public Group getGroup(){
+        return group;
     }
 
-    @ValueRangeProvider(id = "availableMembers")
-    @ProblemFactCollectionProperty
-    public List<Member> getMemberList(){
-        return memberList;
+    @PlanningVariable
+    public Member getMember(){
+        return member;
     }
 
-    @PlanningScore
-    public HardSoftScore getScore(){
-        return score;
+    public void setGroup(Group group){
+        this.group = group;
     }
 
-    public void setScore(HardSoftScore score){
-        this.score = score;
+    public void setMember(Member member){
+        this.member = member;
     }
+
+
 }
