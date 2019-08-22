@@ -1,5 +1,6 @@
 package com.appliedintelligence.domain;
 
+import org.optaplanner.core.api.domain.solution.PlanningEntityCollectionProperty;
 import org.optaplanner.core.api.domain.solution.PlanningScore;
 import org.optaplanner.core.api.domain.solution.PlanningSolution;
 import org.optaplanner.core.api.domain.solution.drools.ProblemFactCollectionProperty;
@@ -16,6 +17,7 @@ public class MemberAssignmentSolution {
     private List<Member> memberList;
     private HardSoftScore score;
 
+    @PlanningEntityCollectionProperty
     private List<MemberAssignment> memberAssigmnmentList;
 
     @ProblemFactCollectionProperty
@@ -23,7 +25,6 @@ public class MemberAssignmentSolution {
         return groupList;
     }
 
-    @ValueRangeProvider(id = "availableMembers")
     @ProblemFactCollectionProperty
     public List<Member> getMemberList(){
         return memberList;

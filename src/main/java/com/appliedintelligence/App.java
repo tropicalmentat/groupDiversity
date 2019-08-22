@@ -6,17 +6,20 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 import com.appliedintelligence.domain.Group;
 import com.appliedintelligence.domain.Member;
+import com.appliedintelligence.domain.MemberAssignment;
 import com.opencsv.CSVReader;
 
 public class App {
 
     private static final String dataPath  = "C:\\Users\\jose.luigi.s.torres\\Desktop\\trulyhuman_grouper\\data\\data_th_heart_melted.csv";
 
-    public static void setUp(List<String> members){
+    public static void initializeSolution(List<String> members){
         ArrayList<Member> memberList = new ArrayList<>();
         ArrayList<Group> groupList = new ArrayList<>();
 
@@ -26,20 +29,45 @@ public class App {
             group.setGroupIndex(i);
             groupList.add(group);
         }
-        System.out.println(groupList);
+//        System.out.println(groupList);
 
         // create list of members
         for (String memberName:members){
             Member member = new Member();
-            System.out.println(memberName);
+//            System.out.println(memberName);
             member.setName(memberName);
             memberList.add(member);
         }
-        System.out.println(memberList);
+//        System.out.println(memberList);
+
+        assignMember(groupList,memberList);
 
     }
-    public void assignMember(){
+    public static void assignMember(List<Group> groupList, List<Member> memberList){
 
+        HashSet<String> assignedMember = new HashSet<>();
+        System.out.println(assignedMember);
+        for (Group group:groupList){
+//            System.out.println("Assigning members in " + group.getGroupIndex());
+            for (Member member:memberList){
+
+                String assignment = member.getName()+":"+group.getGroupIndex();
+//                System.out.println(assignment);
+
+                if (group.getMemberCapacity()>=0){
+
+                    MemberAssignment memberAssignment = new MemberAssignment(assignment);
+                    memberAssignment.setGroup(group);
+                    memberAssignment.setMember(member);
+                    assignedMember.add(member.getName());
+
+                    group.setMemberCapacity(group.getMemberCapacity()-1);
+
+//                    System.out.println(memberAssignment);
+
+                }
+            }
+        }System.out.println(assignedMember);
     }
 
     private static List<String> readData(String path) throws IOException{
@@ -56,16 +84,14 @@ public class App {
                     data.add(nextRecord[0]);
 //                    System.out.println(nextRecord[0]);
                 }
-
             }
-
         }
         return data;
     }
 
     public static void main(String[] args) throws IOException {
         List<String> memberNames = readData(dataPath);
-        setUp(memberNames);
+        initializeSolution(memberNames);
 
     }
 }

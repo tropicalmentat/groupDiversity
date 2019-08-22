@@ -6,8 +6,21 @@ import org.optaplanner.core.api.domain.variable.PlanningVariable;
 @PlanningEntity
 public class MemberAssignment {
 
+    private String assignmentID;
     private Group group;
     private Member member;
+
+    public MemberAssignment(String id){
+        this.assignmentID = id;
+    }
+
+    public String getAssignmentID(){
+        return assignmentID;
+    }
+
+    public void setAssignmentID(String i){
+        this.assignmentID = i;
+    }
 
     public Group getGroup(){
         return group;
