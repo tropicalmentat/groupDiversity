@@ -45,29 +45,31 @@ public class App {
     }
     public static void assignMember(List<Group> groupList, List<Member> memberList){
 
+        ArrayList<MemberAssignment> assignmentList = new ArrayList<>();
         HashSet<String> assignedMember = new HashSet<>();
-        System.out.println(assignedMember);
+
         for (Group group:groupList){
-//            System.out.println("Assigning members in " + group.getGroupIndex());
+
             for (Member member:memberList){
 
                 String assignment = member.getName()+":"+group.getGroupIndex();
-//                System.out.println(assignment);
 
-                if (group.getMemberCapacity()>=0){
+                if (assignedMember.contains(member.getName())){
+                    System.out.println(member.getName() + " is already assigned to a group!");
+                }
+                else if (group.getMemberCapacity()>=1) {
 
                     MemberAssignment memberAssignment = new MemberAssignment(assignment);
                     memberAssignment.setGroup(group);
                     memberAssignment.setMember(member);
                     assignedMember.add(member.getName());
-
-                    group.setMemberCapacity(group.getMemberCapacity()-1);
-
-//                    System.out.println(memberAssignment);
-
+                    assignmentList.add(memberAssignment);
+                    group.setMemberCapacity(group.getMemberCapacity() - 1);
+                    System.out.println(group.getGroupIndex() + " has " + group.getMemberCapacity() + " capacity");
+                    
                 }
             }
-        }System.out.println(assignedMember);
+        }
     }
 
     private static List<String> readData(String path) throws IOException{
