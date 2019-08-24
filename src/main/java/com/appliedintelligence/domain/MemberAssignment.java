@@ -22,11 +22,12 @@ public class MemberAssignment {
         this.assignmentID = i;
     }
 
+//    @PlanningVariable(valueRangeProviderRefs = {"availableGroups"})
     public Group getGroup(){
         return group;
     }
 
-    @PlanningVariable
+    @PlanningVariable(valueRangeProviderRefs = {"availableMembers"})
     public Member getMember(){
         return member;
     }

@@ -1,5 +1,9 @@
 package com.appliedintelligence;
 
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.DocumentBuilder;
+import java.io.File;
+
 import java.io.IOException;
 import java.io.Reader;
 import java.nio.charset.StandardCharsets;
@@ -13,11 +17,17 @@ import java.util.List;
 import com.appliedintelligence.domain.Group;
 import com.appliedintelligence.domain.Member;
 import com.appliedintelligence.domain.MemberAssignment;
+import com.appliedintelligence.domain.MemberAssignmentSolution;
 import com.opencsv.CSVReader;
+import org.optaplanner.core.api.solver.Solver;
+import org.optaplanner.core.api.solver.SolverFactory;
 
 public class App {
 
     private static final String dataPath  = "C:\\Users\\jose.luigi.s.torres\\Desktop\\trulyhuman_grouper\\data\\data_th_heart_melted.csv";
+    private static final String configPath = "C:\\Users\\jose.luigi.s.torres\\Desktop\\trulyhuman_grouper\\src\\main\\resources\\com.appliedintelligence\\solver\\SolverConfiguration.xml";
+
+    static MemberAssignmentSolution unsolvedAssignment = new MemberAssignmentSolution();
 
     public static void initializeSolution(List<String> members){
         ArrayList<Member> memberList = new ArrayList<>();
@@ -40,7 +50,9 @@ public class App {
         }
 //        System.out.println(memberList);
 
-        assignMember(groupList,memberList);
+        unsolvedAssignment.getMemberList().addAll(memberList);
+        unsolvedAssignment.getGroupList().addAll(groupList);
+//        assignMember(groupList,memberList);
 
     }
     public static void assignMember(List<Group> groupList, List<Member> memberList){
@@ -66,7 +78,7 @@ public class App {
                     assignmentList.add(memberAssignment);
                     group.setMemberCapacity(group.getMemberCapacity() - 1);
                     System.out.println(group.getGroupIndex() + " has " + group.getMemberCapacity() + " capacity");
-                    
+
                 }
             }
         }
@@ -91,9 +103,19 @@ public class App {
         return data;
     }
 
+    public static void CustomJavaSolver(File solverConfigFile){
+
+        SolverFactory<MemberAssignmentSolution> solverFactory = SolverFactory.
+                createFromXmlFile(solverConfigFile);
+        Solver<MemberAssignmentSolution> solver = solverFactory.buildSolver();
+
+    }
+
     public static void main(String[] args) throws IOException {
+        File solverConfig = new File(configPath);
         List<String> memberNames = readData(dataPath);
         initializeSolution(memberNames);
+        CustomJavaSolver(solverConfig);
 
     }
 }
