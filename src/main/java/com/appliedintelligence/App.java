@@ -21,20 +21,23 @@ import com.appliedintelligence.domain.MemberAssignmentSolution;
 import com.opencsv.CSVReader;
 import org.optaplanner.core.api.solver.Solver;
 import org.optaplanner.core.api.solver.SolverFactory;
+import org.optaplanner.core.impl.score.director.ScoreDirector;
+import org.optaplanner.core.impl.score.director.ScoreDirectorFactory;
 
 public class App {
 
     private static final String dataPath  = "C:\\Users\\jose.luigi.s.torres\\Desktop\\trulyhuman_grouper\\data\\data_th_heart_melted.csv";
     private static final String configPath = "C:\\Users\\jose.luigi.s.torres\\Desktop\\trulyhuman_grouper\\src\\main\\resources\\com.appliedintelligence\\solver\\SolverConfiguration.xml";
 
-    static MemberAssignmentSolution unsolvedAssignment = new MemberAssignmentSolution();
+    public static MemberAssignmentSolution unsolvedAssignment = new MemberAssignmentSolution();
+    public static ScoreDirector scoreDirector;
 
     public static void initializeSolution(List<String> members){
         ArrayList<Member> memberList = new ArrayList<>();
         ArrayList<Group> groupList = new ArrayList<>();
 
         // create groups
-        for (int i=0;i<=7;i++){
+        for (int i=0;i<=5;i++){
             Group group = new Group();
             group.setGroupIndex(i);
             groupList.add(group);
@@ -52,7 +55,7 @@ public class App {
 
         unsolvedAssignment.getMemberList().addAll(memberList);
         unsolvedAssignment.getGroupList().addAll(groupList);
-//        assignMember(groupList,memberList);
+        assignMember(groupList,memberList);
 
     }
     public static void assignMember(List<Group> groupList, List<Member> memberList){
@@ -69,7 +72,10 @@ public class App {
                 if (assignedMember.contains(member.getName())){
                     System.out.println(member.getName() + " is already assigned to a group!");
                 }
-                else if (group.getMemberCapacity()>=1) {
+                /*
+                Add all members to group 1 to create suboptimal initial solution
+                 */
+                else if (group.getGroupIndex()==1) {
 
                     MemberAssignment memberAssignment = new MemberAssignment(assignment);
                     memberAssignment.setGroup(group);
@@ -77,6 +83,7 @@ public class App {
                     assignedMember.add(member.getName());
                     assignmentList.add(memberAssignment);
                     group.setMemberCapacity(group.getMemberCapacity() - 1);
+                    unsolvedAssignment.getAssignmentList().add(memberAssignment);
                     System.out.println(group.getGroupIndex() + " has " + group.getMemberCapacity() + " capacity");
 
                 }
@@ -105,9 +112,17 @@ public class App {
 
     public static void CustomJavaSolver(File solverConfigFile){
 
+        System.out.println("Solving...");
+
         SolverFactory<MemberAssignmentSolution> solverFactory = SolverFactory.
                 createFromXmlFile(solverConfigFile);
         Solver<MemberAssignmentSolution> solver = solverFactory.buildSolver();
+        ScoreDirectorFactory scoreDirectorFactory = solver.getScoreDirectorFactory();
+        scoreDirector = scoreDirectorFactory.buildScoreDirector();
+        scoreDirector.setWorkingSolution(unsolvedAssignment);
+        solver.solve(unsolvedAssignment);
+//        System.out.print(scoreDirectorFactory);
+//        System.out.println("Solved");
 
     }
 
