@@ -55,10 +55,14 @@ public class App {
 
         unsolvedAssignment.getMemberList().addAll(memberList);
         unsolvedAssignment.getGroupList().addAll(groupList);
-        assignMember(groupList,memberList);
+        List<MemberAssignment> assignmentList = assignMember(groupList,memberList);
+        for (MemberAssignment assignment:assignmentList){
+            unsolvedAssignment.getAssignmentList().add(assignment);
+        }
+
 
     }
-    public static void assignMember(List<Group> groupList, List<Member> memberList){
+    public static List<MemberAssignment> assignMember(List<Group> groupList, List<Member> memberList){
 
         ArrayList<MemberAssignment> assignmentList = new ArrayList<>();
         HashSet<String> assignedMember = new HashSet<>();
@@ -70,25 +74,26 @@ public class App {
                 String assignment = member.getName()+":"+group.getGroupIndex();
 
                 if (assignedMember.contains(member.getName())){
-                    System.out.println(member.getName() + " is already assigned to a group!");
+//                    System.out.println(member.getName() + " is already assigned to a group!");
                 }
                 /*
                 Add all members to group 1 to create suboptimal initial solution
                  */
                 else if (group.getGroupIndex()==1) {
 
-                    MemberAssignment memberAssignment = new MemberAssignment(assignment);
+                    MemberAssignment memberAssignment = new MemberAssignment();
                     memberAssignment.setGroup(group);
                     memberAssignment.setMember(member);
                     assignedMember.add(member.getName());
                     assignmentList.add(memberAssignment);
                     group.setMemberCapacity(group.getMemberCapacity() - 1);
-                    unsolvedAssignment.getAssignmentList().add(memberAssignment);
-                    System.out.println(group.getGroupIndex() + " has " + group.getMemberCapacity() + " capacity");
+//
+//                    System.out.println(group.getGroupIndex() + " has " + group.getMemberCapacity() + " capacity");
 
                 }
             }
         }
+        return assignmentList;
     }
 
     private static List<String> readData(String path) throws IOException{
@@ -121,8 +126,8 @@ public class App {
         scoreDirector = scoreDirectorFactory.buildScoreDirector();
         scoreDirector.setWorkingSolution(unsolvedAssignment);
         solver.solve(unsolvedAssignment);
-//        System.out.print(scoreDirectorFactory);
-//        System.out.println("Solved");
+        MemberAssignmentSolution bestAssignment = (MemberAssignmentSolution) solver.getBestSolution();
+        bestAssignment.printMemberAssignment();
 
     }
 

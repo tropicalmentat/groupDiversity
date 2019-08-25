@@ -25,6 +25,7 @@ public class MemberAssignmentSolution {
     public MemberAssignmentSolution(){
         groupList = new ArrayList<>();
         memberList = new ArrayList<>();
+        memberAssignmentList = new ArrayList<>();
     }
 
     @PlanningEntityCollectionProperty
@@ -55,9 +56,9 @@ public class MemberAssignmentSolution {
 
     public void printMemberAssignment(){
         for (MemberAssignment assignment:memberAssignmentList){
-            System.out.println(assignment.getMember().toString()
-                    + "is assigned to" +
-                    assignment.getGroup());
+            System.out.println(assignment.getMember().getName()
+                    + " is assigned to " +
+                    assignment.getGroup().getGroupIndex());
         }
     }
 }

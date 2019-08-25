@@ -11,8 +11,7 @@ public class MemberAssignment {
     private Group group;
     private Member member;
 
-    public MemberAssignment(String id){
-        this.assignmentID = id;
+    public MemberAssignment(){
     }
 
     public String getAssignmentID(){
