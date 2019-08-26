@@ -23,8 +23,11 @@ import org.optaplanner.core.impl.score.director.ScoreDirectorFactory;
 
 public class App {
 
-    private static final String dataPath  = "C:\\Users\\jose.luigi.s.torres\\Desktop\\trulyhuman_grouper\\data\\data_th_heart_melted.csv";
-    private static final String configPath = "C:\\Users\\jose.luigi.s.torres\\Desktop\\trulyhuman_grouper\\src\\main\\resources\\com.appliedintelligence\\solver\\SolverConfiguration.xml";
+    private static final String dataPath  = "C:\\Users\\jose.luigi.s.torres\\Desktop\\" +
+            "trulyhuman_grouper\\data\\data_th_heart_melted.csv";
+
+    private static final String configPath = "C:\\Users\\jose.luigi.s.torres\\Desktop\\" +
+            "trulyhuman_grouper\\src\\main\\resources\\com.appliedintelligence\\solver\\SolverConfiguration.xml";
 
     public static MemberAssignmentSolution unsolvedAssignment = new MemberAssignmentSolution();
     public static ScoreDirector scoreDirector;
@@ -76,7 +79,7 @@ public class App {
                 /*
                 Add all members to group 1 to create suboptimal initial solution
                  */
-                else if (group.getGroupIndex()==1) {
+                else if (group.getMemberCapacity()>=1) {
 
                     MemberAssignment memberAssignment = new MemberAssignment();
                     memberAssignment.setGroup(group);
@@ -92,7 +95,7 @@ public class App {
         }
         return assignmentList;
     }
-
+    // TODO: Make another class for reading data and creating entities
     private static List<String> readData(String path) throws IOException{
         ArrayList<String> data = new ArrayList<>();
         try (

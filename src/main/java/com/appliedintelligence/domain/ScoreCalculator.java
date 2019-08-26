@@ -19,8 +19,8 @@ public class ScoreCalculator implements EasyScoreCalculator<MemberAssignmentSolu
         2. Each group can hold a maximum of 7 members only
         3. Each group should have more than 1 member
          */
-
-        ArrayList<MemberAssignment> assignmentList = new ArrayList<>();
+        //TODO: Add negative scoring when members with the same hobbies are off the same group
+//        ArrayList<MemberAssignment> assignmentList = new ArrayList<>();
         HashSet<String> assignedMember = new HashSet<>();
 
         for (Group group:memberAssignmentSolution.getGroupList()){
@@ -35,7 +35,7 @@ public class ScoreCalculator implements EasyScoreCalculator<MemberAssignmentSolu
                     simpleScore+=-1;
                 }
 
-                String assignment = member.getName()+":"+group.getGroupIndex();
+//                String assignment = member.getName()+":"+group.getGroupIndex();
 
                 if (assignedMember.contains(member.getName())){
                     simpleScore += -1;
