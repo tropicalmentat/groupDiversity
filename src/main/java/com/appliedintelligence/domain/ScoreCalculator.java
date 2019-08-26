@@ -1,7 +1,7 @@
 package com.appliedintelligence.domain;
 
 import org.optaplanner.core.api.score.Score;
-import org.optaplanner.core.api.score.buildin.hardsoft.HardSoftScore;
+import org.optaplanner.core.api.score.buildin.simple.SimpleScore;
 import org.optaplanner.core.impl.score.director.easy.EasyScoreCalculator;
 
 import java.util.ArrayList;
@@ -10,8 +10,8 @@ import java.util.HashSet;
 public class ScoreCalculator implements EasyScoreCalculator<MemberAssignmentSolution> {
 
     public Score calculateScore(MemberAssignmentSolution memberAssignmentSolution){
-        int hardScore = 0;
-        int softScore = 0;
+
+        int simpleScore = 0;
 
         /*
         Hard Constraints:
@@ -25,27 +25,32 @@ public class ScoreCalculator implements EasyScoreCalculator<MemberAssignmentSolu
 
         for (Group group:memberAssignmentSolution.getGroupList()){
 
+            if (group.getMemberCapacity()>=7){
+                simpleScore+=-1;
+            }
+
             for (Member member:memberAssignmentSolution.getMemberList()){
+
+                if (group.getMemberCapacity()<0){
+                    simpleScore+=-1;
+                }
 
                 String assignment = member.getName()+":"+group.getGroupIndex();
 
                 if (assignedMember.contains(member.getName())){
-                    hardScore += -1;
+                    simpleScore += -1;
                     System.out.println(member.getName() + " is already assigned to a group!");
                 }
                 else if (group.getMemberCapacity()>=1) {
 
-//                    MemberAssignment memberAssignment = new MemberAssignment(assignment);
-//                    memberAssignment.setGroup(group);
-//                    memberAssignment.setMember(member);
                     assignedMember.add(member.getName());
-//                    assignmentList.add(memberAssignment);
-                    group.setMemberCapacity(group.getMemberCapacity() - 1);
-                    System.out.println(group.getGroupIndex() + " has " + group.getMemberCapacity() + " capacity");
 
+                    group.setMemberCapacity(group.getMemberCapacity() - 1);
+
+//                    System.out.println(group.getGroupIndex() + " has " + group.getMemberCapacity() + " capacity");
                 }
             }
         }
-        return HardSoftScore.valueOf(hardScore,softScore);
+        return SimpleScore.valueOf(simpleScore);
     }
 }
