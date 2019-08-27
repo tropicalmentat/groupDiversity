@@ -115,7 +115,7 @@ public class App {
         return data;
     }
 
-    public static void CustomJavaSolver(File solverConfigFile){
+    public static void Solver(File solverConfigFile){
 
         System.out.println("Solving...");
 
@@ -135,7 +135,7 @@ public class App {
         File solverConfig = new File(configPath);
         List<String> memberNames = readData(dataPath);
         initializeSolution(memberNames);
-        CustomJavaSolver(solverConfig);
+        Solver(solverConfig);
 
     }
 }

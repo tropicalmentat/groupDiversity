@@ -1,3 +1,5 @@
+# Small script to create test dataset for group optimization
+
 import pandas as pd
 
 data = r'C:\Users\jose.luigi.s.torres\Desktop\trulyhuman_grouper\data\data_th_heart_melted.csv'
