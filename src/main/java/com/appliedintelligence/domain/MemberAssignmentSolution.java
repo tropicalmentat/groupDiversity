@@ -18,6 +18,7 @@ public class MemberAssignmentSolution {
     private List<Group> groupList;
     private List<Member> memberList;
     private List<MemberAssignment> memberAssignmentList;
+    private List<HobbyPractitioner> hobbyPractitionerList;
 
     private SimpleScore score;
 
@@ -25,6 +26,7 @@ public class MemberAssignmentSolution {
         groupList = new ArrayList<>();
         memberList = new ArrayList<>();
         memberAssignmentList = new ArrayList<>();
+        hobbyPractitionerList = new ArrayList<>();
     }
 
     @PlanningEntityCollectionProperty
@@ -42,6 +44,15 @@ public class MemberAssignmentSolution {
     @ProblemFactCollectionProperty
     public List<Member> getMemberList(){
         return memberList;
+    }
+
+    @ProblemFactCollectionProperty
+    public List<HobbyPractitioner> getHobbyPractitionerList(){
+        return hobbyPractitionerList;
+    }
+
+    public void setHobbyPractitionerList(List<HobbyPractitioner> hobbyPractitionerList){
+        this.hobbyPractitionerList = hobbyPractitionerList;
     }
 
     @PlanningScore

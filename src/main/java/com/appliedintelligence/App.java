@@ -42,7 +42,6 @@ public class App {
             group.setGroupIndex(i);
             groupList.add(group);
         }
-//        System.out.println(groupList);
 
         // create list of members
         for (String memberName:members){
@@ -51,7 +50,6 @@ public class App {
             member.setName(memberName);
             memberList.add(member);
         }
-//        System.out.println(memberList);
 
         unsolvedAssignment.getMemberList().addAll(memberList);
         unsolvedAssignment.getGroupList().addAll(groupList);

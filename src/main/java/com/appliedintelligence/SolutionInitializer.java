@@ -1,5 +1,6 @@
 package com.appliedintelligence;
 import com.appliedintelligence.domain.Hobby;
+import com.appliedintelligence.domain.HobbyPractitioner;
 import com.appliedintelligence.domain.Member;
 import com.opencsv.CSVReader;
 
@@ -12,6 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SolutionInitializer {
+
+    private List<Member> memberList = new ArrayList<>();
+    private List<HobbyPractitioner> hobbyPractitionerList = new ArrayList<>();
 
     private static final String dataPath  = "C:\\Users\\jose.luigi.s.torres\\" +
             "Desktop\\trulyhuman_grouper\\data\\sample_hobbies.csv";
